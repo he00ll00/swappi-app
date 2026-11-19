@@ -1,0 +1,101 @@
+{% extends "core/app_base.html" %}{% load static %}
+{% block title %}Discover{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">LESS SPENDING. MORE POSSIBILITY.</p>
+    <h1>Good finds.<br>New beginnings.</h1>
+  </div>
+  <img class="hero-shoes" src="{% static 'core/img/hero-shoes.png' %}" alt="" aria-hidden="true">
+  <div class="hero-art" aria-hidden="true"><img src="{% static 'core/img/hero-dress.png' %}" alt=""></div>
+</section>
+
+<section class="feature-strip" aria-label="Swappi benefits">
+  <div class="feature-item">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8l10-5 10 5-10 5L2 8zM6 10v5c3 3 9 3 12 0v-5M22 8v7"/></svg>
+    <div class="feature-copy"><strong>WMSU-only community</strong><small>For verified students</small></div>
+  </div>
+  <div class="feature-item">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="3"/><circle cx="18" cy="8" r="2.5"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 14a5 5 0 0 1 5 5v1"/></svg>
+    <div class="feature-copy"><strong>Meet up in person</strong><small>No online payment needed</small></div>
+  </div>
+  <div class="feature-item">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M17 3l4 4-4 4M21 17H3m4 4l-4-4 4-4"/></svg>
+    <div class="feature-copy"><strong>Smart swap matching</strong><small>Find better trade offers</small></div>
+  </div>
+  <div class="feature-item">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8zM9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    <div class="feature-copy"><strong>Buy, sell, or trade</strong><small>One place for campus finds</small></div>
+  </div>
+</section>
+
+<div class="section-head">
+  <div><h2 id="gridTitle">Picked for you</h2><p class="muted small" id="gridSub">Based on your interest in fashion</p></div>
+  <button class="link" id="seeAll">See all</button>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>
+  <p><strong>No items found.</strong></p>
+  <p class="muted small">Try another search or filter.</p>
+</div>
+
+<!-- Item details modal -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <header class="modal-head">
+      <span>Item details</span>
+      <div>
+        <button class="icon-btn" id="mHeart" aria-label="Save item"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+        <button class="icon-btn" id="mClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+    </header>
+    <div class="modal-body">
+      <div class="m-photo" id="mPhoto"><span class="tag" id="mTag"></span></div>
+      <div class="m-info">
+        <h2 id="mTitle"></h2>
+        <p class="m-price" id="mPrice"></p>
+        <span class="pill" id="mTrade"><svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg>Open to trades</span>
+        <p class="meta" id="mMeta"></p>
+        <div class="seller">
+          <span class="avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+          <div><strong id="mSeller"></strong><small>Verified WMSU student</small></div>
+          <span class="rating" id="mRating"></span>
+        </div>
+        <h3>About this item</h3>
+        <p class="small" id="mDesc"></p>
+        <p class="small looking" id="mLooking"></p>
+        <div class="note"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Meet up at WMSU</strong><small>Agree on a public spot. No online payments.</small></div></div>
+
+        <div class="offer" id="offerBox" hidden>
+          <div class="seg" id="offerType"><button type="button" class="on" data-v="cash">Cash</button><button type="button" data-v="swap">Swap</button></div>
+          <input id="offerCash" type="number" min="1" placeholder="Your offer (PHP)">
+          <div class="offer-photo-field" id="offerPhotoField" hidden>
+            <input id="offerPhotoInput" class="offer-photo-input" type="file" accept="image/*" aria-label="Upload a photo of your swap item">
+            <label class="offer-photo-card" for="offerPhotoInput">
+              <span class="offer-photo-add" aria-hidden="true">+</span>
+              <img id="offerPhotoPreview" class="offer-photo-preview" alt="Preview of your swap item photo" hidden>
+              <span class="offer-photo-copy">
+                <strong>Required photo (no AI)</strong>
+                <small id="offerPhotoHint">Upload a real photo of the item you want to swap.</small>
+              </span>
+            </label>
+            <p class="offer-photo-error" id="offerPhotoErr" role="alert"></p>
+          </div>
+          <input id="offerSwap" type="text" placeholder="What would you swap?" hidden>
+          <select id="offerSpot"><option>Main Library steps</option><option>Student Center</option><option>Main Gate waiting shed</option><option>College canteen</option></select>
+          <button class="btn btn-primary btn-block" id="offerSend">Send offer</button>
+        </div>
+        <div class="actions" id="mActions">
+          <button class="btn btn-ghost" id="mMsg">Message seller</button>
+          <button class="btn btn-primary" id="mOffer">Make an offer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ listings|json_script:"seed-listings" }}
+{% endblock %}
+{% block scripts %}
+<script>Swappi.initDiscover("{% url 'create_listing' %}");</script>
+{% endblock %}

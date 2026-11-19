@@ -1,0 +1,42 @@
+﻿{% extends "core/app_base.html" %}
+{% block title %}Create a listing{% endblock %}
+{% block content %}
+<div class="create-head">
+  <div><h1 class="h-lg">Create a listing</h1><p class="muted small">Give your things their next chapter.</p></div>
+  <button class="link" id="saveDraft" type="button">Save draft</button>
+</div>
+
+<form class="create" id="listingForm" novalidate>
+  <section class="card photos">
+    <div class="card-head"><strong>Photos</strong><span class="muted small" id="photoCount">0 of 6</span></div>
+    <div class="photo-grid" id="photoGrid">
+      <label class="add-photo" id="addPhoto">
+        <input type="file" id="photoInput" accept="image/*" multiple hidden>
+        <span class="plus">+</span><span>Add photos</span>
+      </label>
+    </div>
+    <p class="muted small">Use clear, real photos of your item.</p>
+    <small class="error" id="photoErr"></small>
+  </section>
+
+  <section class="card fields">
+    <div class="field"><label for="title">Item title</label><input id="title" maxlength="60" placeholder="e.g. White short sleeve blazer"><small class="error"></small></div>
+    <div class="two">
+      <div class="field"><label for="category">Category</label>
+        <select id="category"><option value="">Select</option>{% for c in categories %}<option>{{ c }}</option>{% endfor %}</select><small class="error"></small></div>
+      <div class="field"><label for="condition">Condition</label>
+        <select id="condition"><option value="">Select</option><option>New</option><option>Like new</option><option>Good</option><option>Fair</option></select><small class="error"></small></div>
+    </div>
+    <div class="field"><label>Listing type</label>
+      <div class="seg wide" id="listType"><button type="button" data-v="sale" class="on">For sale</button><button type="button" data-v="trade">For trade</button><button type="button" data-v="both">Sale or trade</button></div></div>
+    <div class="field" id="priceField"><label for="price">Price (PHP)</label><div class="prefix"><span>₱</span><input id="price" type="number" min="1" placeholder="0"></div><small class="error"></small></div>
+    <div class="field"><label for="desc">Description</label><textarea id="desc" rows="3" maxlength="400" placeholder="Size, wear, anything buyers should know."></textarea><small class="error"></small></div>
+    <div class="field" id="swapField" hidden><label for="swapFor">Open to swapping for</label><input id="swapFor" placeholder="e.g. A crochet top, size S–M"><small class="error"></small></div>
+    <p class="muted small">Campus meetups only. No online payments.</p>
+    <button class="btn btn-primary btn-block" type="submit">Publish listing</button>
+  </section>
+</form>
+{% endblock %}
+{% block scripts %}
+<script>Swappi.initCreate("{% url 'discover' %}");</script>
+{% endblock %}

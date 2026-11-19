@@ -1,0 +1,12 @@
+﻿{% extends "core/base.html" %}{% load static %}
+{% block title %}Welcome{% endblock %}
+{% block body_class %}center-screen{% endblock %}
+{% block body %}
+<main class="splash">
+  <img class="splash-logo" src="{% static 'core/img/logo.svg' %}" alt="Swappi logo">
+  <h1 class="splash-name">Swappi</h1>
+  <p class="muted">Buy, sell &amp; swap within WMSU.</p>
+  <a class="btn btn-primary splash-cta" href="{% url 'login' %}">Get started</a>
+  <p class="splash-foot">MADE FOR THE WMSU COMMUNITY</p>
+</main>
+{% endblock %}

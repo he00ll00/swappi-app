@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}{% load static %}
+{% block title %}Log in{% endblock %}
+{% block body_class %}login-page{% endblock %}
+{% block body %}
+<main class="login-split">
+ <section class="login-brand">
+  <img class="login-logo" src="{% static 'core/img/logo.svg' %}" alt="Swappi logo">
+  <div class="login-name">Swappi</div>
+  <p class="login-tag">Buy, sell &amp; swap within WMSU.</p>
+ </section>
+ <section class="auth login-card">
+  <h1>Welcome back</h1>
+  <p class="muted">Your next great find is waiting.</p>
+
+  <form id="loginForm" novalidate>
+    <div class="field">
+      <label for="email">Student email</label>
+      <input id="email" type="email" placeholder="Enter your student email" autocomplete="email">
+      <small class="error" id="emailErr"></small>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <div class="input-wrap">
+        <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password">
+        <button type="button" class="eye" id="togglePw" aria-label="Show password">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <small class="error" id="pwErr"></small>
+    </div>
+    <a href="#" class="forgot">Forgot password?</a>
+    <button class="btn btn-primary btn-block" type="submit">Log in</button>
+  </form>
+  <p class="auth-alt"><span>New to Swappi?</span> <a href="#">Create account</a></p>
+ </section>
+</main>
+{% endblock %}
+{% block scripts %}
+<script>
+(function(){
+  var f = document.getElementById('loginForm');
+  document.getElementById('togglePw').addEventListener('click', function(){
+    var p = document.getElementById('password');
+    p.type = p.type === 'password' ? 'text' : 'password';
+  });
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var em = document.getElementById('email'), pw = document.getElementById('password'), ok = true;
+    var emailOk = /^[^\s@]+@([a-z0-9-]+\.)*wmsu\.edu\.ph$/i.test(em.value.trim());
+    document.getElementById('emailErr').textContent = emailOk ? '' : 'Use your WMSU student email (name@wmsu.edu.ph).';
+    em.classList.toggle('invalid', !emailOk);
+    var pwOk = pw.value.length >= 6;
+    document.getElementById('pwErr').textContent = pwOk ? '' : 'Password must be at least 6 characters.';
+    pw.classList.toggle('invalid', !pwOk);
+    if (emailOk && pwOk) { try { localStorage.setItem('swappi_user', em.value.trim()); } catch(_){} location.href = "{% url 'discover' %}"; }
+  });
+})();
+</script>
+{% endblock %}
