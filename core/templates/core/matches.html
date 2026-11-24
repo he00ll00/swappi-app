@@ -1,0 +1,21 @@
+{% extends "core/app_base.html" %}
+{% block title %}Trade matches{% endblock %}
+{% block content %}
+<div class="match-head">
+  <h1 class="h-lg">Trade matches</h1>
+  <label class="match-picker">
+    <span class="small muted">My item</span>
+    <select id="matchItem"></select>
+  </label>
+</div>
+
+<div class="match-list" id="matchList"></div>
+<div class="empty" id="matchEmpty" hidden>
+  <p><strong>No matches yet.</strong></p>
+</div>
+
+{{ listings|json_script:"seed-listings" }}
+{% endblock %}
+{% block scripts %}
+<script>Swappi.initMatches("{% url 'discover' %}", "{% url 'create_listing' %}", "{% url 'offers' %}");</script>
+{% endblock %}

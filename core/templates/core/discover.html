@@ -2,12 +2,13 @@
 {% block title %}Discover{% endblock %}
 {% block content %}
 <section class="hero">
-  <div>
+  <div class="hero-copy">
     <p class="eyebrow">LESS SPENDING. MORE POSSIBILITY.</p>
     <h1>Good finds.<br>New beginnings.</h1>
   </div>
-  <img class="hero-shoes" src="{% static 'core/img/hero-shoes.png' %}" alt="" aria-hidden="true">
-  <div class="hero-art" aria-hidden="true"><img src="{% static 'core/img/hero-dress.png' %}" alt=""></div>
+  <div class="hero-art" aria-hidden="true">
+    <img src="{% static 'core/img/hero-swap.png' %}" alt="" width="1200" height="630">
+  </div>
 </section>
 
 <section class="feature-strip" aria-label="Swappi benefits">
@@ -37,7 +38,7 @@
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>
   <p><strong>No items found.</strong></p>
-  <p class="muted small">Try another search or filter.</p>
+  <p class="muted small" id="emptyMsg">Try another search or filter.</p>
 </div>
 
 <!-- Item details modal -->
@@ -89,6 +90,24 @@
         <div class="actions" id="mActions">
           <button class="btn btn-ghost" id="mMsg">Message seller</button>
           <button class="btn btn-primary" id="mOffer">Make an offer</button>
+        </div>
+
+        <button class="report-link" id="mReport" type="button">
+          <svg viewBox="0 0 24 24"><path d="M4 22V4M4 4h13l-2 4 2 4H4"/></svg>Report this listing
+        </button>
+        <div class="report-box" id="reportBox" hidden>
+          <label class="small" for="reportReason"><strong>What's wrong with this listing?</strong></label>
+          <select id="reportReason">
+            <option>Suspicious or scam activity</option>
+            <option>Fake or misleading photos</option>
+            <option>Prohibited item</option>
+            <option>Seller was unresponsive or no-show</option>
+            <option>Other</option>
+          </select>
+          <div class="actions">
+            <button class="btn btn-ghost" id="reportCancel" type="button">Cancel</button>
+            <button class="btn btn-primary" id="reportSend" type="button">Submit report</button>
+          </div>
         </div>
       </div>
     </div>

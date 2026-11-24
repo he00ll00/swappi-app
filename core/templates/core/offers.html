@@ -1,0 +1,26 @@
+{% extends "core/app_base.html" %}
+{% block title %}Offers &amp; meetups{% endblock %}
+{% block content %}
+<div class="create-head">
+  <div>
+    <h1 class="h-lg">Offers &amp; meetups</h1>
+    <p class="muted small">Track offers, confirm meetups, and rate the student you traded with.</p>
+  </div>
+</div>
+
+<div class="seg tabs" id="offerTabs" role="tablist">
+  <button type="button" class="on" data-v="sent" role="tab">Sent <span class="count" id="countSent"></span></button>
+  <button type="button" data-v="received" role="tab">Received <span class="count" id="countReceived"></span></button>
+</div>
+
+<div class="offer-list" id="offerList"></div>
+<div class="empty" id="offerEmpty" hidden>
+  <p><strong>No offers here yet.</strong></p>
+  <p class="muted small">Open an item on Discover and tap “Make an offer”.</p>
+</div>
+
+{{ listings|json_script:"seed-listings" }}
+{% endblock %}
+{% block scripts %}
+<script>Swappi.initOffers("{% url 'discover' %}");</script>
+{% endblock %}

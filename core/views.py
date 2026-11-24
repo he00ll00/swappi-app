@@ -42,10 +42,30 @@ def login_page(request):
     return render(request, "core/login.html")
 
 
+def _listings():
+    return [dict(i, photo=static("core/img/items/" + i["photo"])) for i in LISTINGS]
+
+
 def discover(request):
-    return render(request, "core/discover.html", {"listings": [dict(i, photo=static("core/img/items/" + i["photo"])) for i in LISTINGS], "active": "discover"})
+    return render(request, "core/discover.html", {"listings": _listings(), "active": "discover"})
+
+
+def offers(request):
+    return render(request, "core/offers.html", {"listings": _listings(), "active": "offers"})
+
+
+def matches(request):
+    return render(request, "core/matches.html", {"listings": _listings(), "active": "matches"})
 
 
 def create_listing(request):
     return render(request, "core/create.html", {"categories": CATEGORIES, "active": "create"})
 
+
+
+def my_listings(request):
+    return render(request, "core/mylistings.html", {"active": "mylistings"})
+
+
+def saved(request):
+    return render(request, "core/saved.html", {"listings": _listings(), "active": "saved"})

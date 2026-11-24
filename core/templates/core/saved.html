@@ -1,0 +1,19 @@
+{% extends "core/app_base.html" %}
+{% block title %}Saved items{% endblock %}
+{% block content %}
+<div class="saved-head">
+  <h1 class="h-lg">Saved items</h1>
+  <span class="muted small" id="savedCount"></span>
+</div>
+
+<div class="saved-list" id="savedList"></div>
+<div class="empty" id="savedEmpty" hidden>
+  <p><strong>Nothing saved yet.</strong></p>
+  <p><a class="link" href="{% url 'discover' %}">Browse items</a></p>
+</div>
+
+{{ listings|json_script:"seed-listings" }}
+{% endblock %}
+{% block scripts %}
+<script>Swappi.initSaved("{% url 'discover' %}");</script>
+{% endblock %}
