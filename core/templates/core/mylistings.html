@@ -1,0 +1,20 @@
+{% extends "core/app_base.html" %}
+{% block title %}My listings{% endblock %}
+{% block content %}
+<div class="create-head">
+  <div>
+    <h1 class="h-lg">My listings</h1>
+    <p class="muted small">Items you have posted for sale or swap.</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'create_listing' %}">+ Add new listing</a>
+</div>
+
+<div class="offer-list" id="myList"></div>
+<div class="empty" id="myEmpty" hidden>
+  <p><strong>You have not listed anything yet.</strong></p>
+  <p class="muted small">Post a pre-owned item to start selling or swapping.</p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>Swappi.initMyListings();</script>
+{% endblock %}

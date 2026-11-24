@@ -3,14 +3,37 @@
 {% block body %}
 <aside class="sidebar">
   <a class="brand" href="{% url 'discover' %}"><img src="{% static 'core/img/logo.svg' %}" alt=""><span>Swappi</span></a>
-  <nav>
+  <a class="btn btn-primary nav-add" href="{% url 'create_listing' %}"><span>+</span> Add new listing</a>
+
+  <nav class="side-nav" aria-label="Main">
+    <p class="nav-label">Marketplace</p>
     <a class="nav-link {% if active == 'discover' %}active{% endif %}" href="{% url 'discover' %}">
       <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>Discover</a>
-    <a class="btn btn-primary nav-add" href="{% url 'create_listing' %}"><span>+</span> Add new listing</a>
-    <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Offers &amp; meetups</a>
-    <a class="nav-link" href="#" id="navTrade"><svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg>Trade matches</a>
-    <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Activity</a>
+    <a class="nav-link {% if active == 'saved' %}active{% endif %}" href="{% url 'saved' %}">
+      <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>Saved items<span class="badge" data-badge="saved" hidden></span></a>
+    <a class="nav-link {% if active == 'matches' %}active{% endif %}" href="{% url 'matches' %}">
+      <svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg>Trade matches</a>
+
+    <p class="nav-label">My Swappi</p>
+    <a class="nav-link {% if active == 'mylistings' %}active{% endif %}" href="{% url 'my_listings' %}">
+      <svg viewBox="0 0 24 24"><path d="M5 8h14l1 13H4L5 8zM9 8V6a3 3 0 0 1 6 0v2"/></svg>My listings<span class="badge" data-badge="listings" hidden></span></a>
+    <a class="nav-link {% if active == 'offers' %}active{% endif %}" href="{% url 'offers' %}">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Offers &amp; meetups<span class="badge hot" data-badge="offers" hidden></span></a>
+
+    <p class="nav-label">Categories</p>
+    <a class="nav-link sub" href="{% url 'discover' %}?cat=Clothing">Clothing</a>
+    <a class="nav-link sub" href="{% url 'discover' %}?cat=Books">Books</a>
+    <a class="nav-link sub" href="{% url 'discover' %}?cat=Uniforms">Uniforms</a>
+    <a class="nav-link sub" href="{% url 'discover' %}?cat=Gadgets">Gadgets</a>
+    <a class="nav-link sub" href="{% url 'discover' %}?cat=Other">Other</a>
   </nav>
+
+  <div class="side-foot">
+    <div class="side-user">
+      <span class="avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+      <div><strong>You</strong><small>Verified WMSU student</small></div>
+    </div>
+  </div>
 </aside>
 <div class="main">
   <header class="topbar">
@@ -21,7 +44,6 @@
     </label>
     <div class="top-actions">
       <button class="icon-btn" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
-      <button class="icon-btn" id="savedBtn" aria-label="Saved items"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg><i class="dot" id="savedDot" hidden></i></button>
       <div class="profile-menu">
         <button class="icon-btn" id="profileBtn" aria-label="Profile" aria-haspopup="true" aria-expanded="false" aria-controls="profileMenu"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
         <div class="profile-dropdown" id="profileMenu" hidden>
